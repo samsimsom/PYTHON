@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block app_content %}
+{% include 'admin/navbar.html'%}
+<div class="new_post-container">
+    <div class="new_post-wrap">
+        <form>
+
+            <div class="form-group">
+                <label class="new_post-label" for="new_post_title">Title</label>
+                <input type="email" class="form-control" id="new_post_title" aria-describedby="emailHelp"
+                    placeholder="Title">
+            </div>
+
+            <div class="form-group">
+                <label class="new_post-label" for="new_post_content">Content</label>
+                <textarea class="form-control" id="new_post_content" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="new_post-label" for="category_input">Category</label>
+                <select class="form-control" id="category_input">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="new_post-label" for="tag_input">Tags</label>
+                <input type="tag" class="form-control" id="tag_input" placeholder="Tags">
+            </div>
+
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="validatedCustomFile" multiple>
+                <label class="custom-file-label new_post-label" for="validatedCustomFile">Choose file...</label>
+                <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+
+            <div class="pt-3">
+                <button type="submit" class="btn btn-dark btn-block">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

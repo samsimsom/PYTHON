@@ -1,0 +1,80 @@
+<!-- HEADER START -->
+<header class="site-header">
+
+    <div class="site-branding">
+        <h1 class="site-title">
+            <a href="{{ url_for('portfolio.index') }}" rel="home">
+                <img src="{{ url_for('static', filename='icon/favicon-32x32.png') }}" alt="Logo">
+            </a>
+        </h1>
+    </div>
+
+    <div class="hamburger-menu">
+        <div class="menu-icon">
+            <img src="{{ url_for('static', filename='images/menu-icon.png') }}" alt="menu icon">
+        </div>
+
+        <div class="menu-close-icon">
+            <img src="{{ url_for('static', filename='images/x.png') }}" alt="menu close icon">
+        </div>
+    </div>
+
+</header>
+<!-- HEADER END -->
+
+<!-- NAVBAR START -->
+<nav class="site-navigation flex flex-column justify-content-between">
+
+    <div class="site-branding d-none d-lg-block">
+        <h1 class="site-title">
+            <a href="{{ url_for('portfolio.index') }}" rel="home">
+                <img src="{{ url_for('static', filename='icon/android-chrome-192x192.png') }}" alt="Logo">
+            </a>
+        </h1>
+    </div>
+
+
+    <ul class="main-menu flex flex-column justify-content-center">
+        <li class="current-menu-item">
+            <a href="{{ url_for('portfolio.index') }}">Portfolio</a>
+        </li>
+        <li>
+            <a href="#">About</a>
+        </li>
+        <li>
+            <a href="#">Market</a>
+        </li>
+        <li>
+            <a href="#">Contact</a>
+        </li>
+        <li>
+            <div class="d-flex flex-row">
+                <div><a href="{{ url_for('auth.login') }}">Login</a></div>
+                <div>/</div>
+                <div><a href="{{ url_for('auth.register') }}">Signin</a></div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="d-none d-lg-block">
+        <p style="text-align: center; font-size: xx-small;">
+            Copyright &copy;
+            <script>document.write(new Date().getFullYear());</script>
+            All rights reserved <i class="fas fa-heart"></i></i>
+            <a href="https://www.firattanrikulu.com" target="_blank">samsimsom</a>
+        </p>
+    </div>
+
+    <div class="social-profiles d-none d-lg-block">
+        <ul class="flex justify-content-start justify-content-center align-items-center">
+            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+        </ul>
+    </div>
+
+</nav>
+<!-- NAVBAR END -->
+
+<div class="nav-bar-sep d-lg-none"></div>

@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block app_content %}
+<div class="grid">
+    <div class="grid-sizer"></div>
+
+    {% for image in dummy_data['images']%}
+    <div class="grid-item">
+
+        <div class="card">
+
+            <a href="{{ url_for('portfolio.single_page', post_id='001') }}">
+                <img src="{{ image }}" class="card-img-top" alt="...">
+            </a>
+
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <div class="d-flex">
+                <div class="mr-auto"><small class="text-muted"><i class="fas fa-link"></i></small></div>
+                <div class="pr-2"><small class="text-muted"><i class="fas fa-comments"></i></small></div>
+                <div class="pl-2"><small class="text-muted"><i class="fas fa-heart"></i></small></div>
+            </div> <!-- d-flex -->
+
+            </div> <!-- card-body -->
+          </div> <!-- card -->
+
+    </div> <!-- grid-item -->
+    {% endfor %}
+
+</div> <!-- grid -->
+
+{% endblock %}

@@ -1,0 +1,75 @@
+
+/////////////////////////////////////////////
+Öğrenilmesi Gerekenler :
+
+    OOP Sistemini anlamalı ve Kullanmalıyım.
+    SQLAlchemy
+    Sqlite
+    Flask
+
+/////////////////////////////////////////////
+
+Fikirler :
+
+console üzerinden oyananacak.
+amaç hayatta kalma süresini arttırmak.
+oyun save edilebilir olmalı fakat save pointlere gelindiğinde.
+skill kazanmak. (ateş yakmak, dikiş dikmek, avlanmak, yemek yapmak vb.)
+ilerleyişe göre farklı şekillerde bitebilecek.
+silahlar olacak.
+zaman, gerçek zamanın bir oranı olmalı yaralar iyileşmeli, yemek pişmeli vs.
+databese kayıtları yapabilmeli ihtiyaç olan oyun dataları ve save için.
+- Grid sisteminde bir haritam olacak, oyuncu istedigi miktarda ilerleyebilecek,
+fakat her alanın kendi lvl sistemi olcak eger oyuncunun lvlından daha yüksek yerlere
+geldiğinde uyarı verecek.
+
+/////////////////////////////////////////////
+
+Problemler :
+bu oyunu browser üzerinden çalışan bi oyun haline getirsem,
+hem online ulaşılabilir, hem görsel sunum olarak daha çekicihale getirebilirim.
+
+Bu bilgiler kullanıcıya nasıl yansıtılacak ?
+    Oyun arayüzü consol olacak kullanıcı canını görebilmeli,
+    yaşam kalitesi ile ilgli degişiklikleri, savaş sırasında düşmanın canını,
+    silahlarının adedini istediği zaman envanterine ulaşabilmekli.
+    GUI seçimi çok önemli.
+
+Standart Console ile basit komutlar kullanarak bilgilere ulaşabilir ?
+colorama ile çıktıları renkli gösterebiliyorum.
+her dört elementte bir alt satıra iner.
+
+    Örnek:
+    - /backpack
+    Kibrit (12)[12.8gr] | Havuç (1)[430gr] | Ekmek-(2)[280gr] | Uzun Çorap-(1)[500gr]
+                                                            Toplam : 1kg 222gr / 10kg
+
+
+
+/////////////////////////////////////////////
+Temel Fonksyolnar :
+
+Move :
+sekiz farklı yöne ilerleyebilecek.
+Zıplayabilecek. (Doublejump)
+
+Pick :
+Sırt çantası olacak eşya biriktirebilecek.
+
+Düşman :
+çevresel etmenler (hava durumu, karanlık vb.)
+piskolojik etmenler (yanlızlık, bilgisizlik vb.)
+canlılar (köpekler, fareler, böcekler vb.)
+zehirli bitkiler ve objeler (mantarlar, otlar vb.)
+hastalıklar (grip, enfenksyon vb.)
+sakatlanmalar ve yaralanmalar
+
+/////////////////////////////////////////////
+
+Edit -> 16 October 2018 | 03:38
+Tarihini hatırlamadığım bu yazıyı bugün farkettim ve çok mutlu oldum.
+Bir süredir unreal Engine üzerinde çalışıyorum ve hayatta kalma oyunu yapıyorum,
+burada oluşturduğum kurgu bazı konularda bana yardımcı oldu. Kendi zaman yolculuğum gibi.
+
+Yeni vesiyonda Python API olacağıngan bahsetmişler, belki python ögrenme sürecime devam
+edersem ilerde faydalı olabilir.
