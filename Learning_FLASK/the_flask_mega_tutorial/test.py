@@ -11,4 +11,4 @@ def ekmek():
 
 print(ekmek())
 
-print(422)
+print(42)
