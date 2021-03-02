@@ -10,3 +10,5 @@ def ekmek():
 
 
 print(ekmek())
+
+print(42)
