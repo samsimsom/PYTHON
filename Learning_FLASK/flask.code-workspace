@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "the_flask_mega_tutorial"
+		},
+		{
+			"path": "domain_driven_design"
 		}
 	],
 	"settings": {}
