@@ -1,25 +1,19 @@
 alembic==1.5.5
-astroid @ file:///tmp/build/80754af9/astroid_1613500858037/work
 certifi==2020.12.5
 click==7.1.2
 Flask==1.1.2
 Flask-Migrate==2.7.0
 Flask-SQLAlchemy==2.4.4
 Flask-WTF==0.14.3
-isort @ file:///tmp/build/80754af9/isort_1612243941122/work
 itsdangerous==1.1.0
 Jinja2==2.11.3
-lazy-object-proxy @ file:///tmp/build/80754af9/lazy-object-proxy_1606850088301/work
 Mako==1.1.4
 MarkupSafe==1.1.1
 mccabe==0.6.1
-pylint @ file:///tmp/build/80754af9/pylint_1614365846934/work
 python-dateutil==2.8.1
 python-dotenv==0.15.0
 python-editor==1.0.4
-six @ file:///tmp/build/80754af9/six_1605205306277/work
+six==1.15.0
 SQLAlchemy==1.3.23
-toml @ file:///tmp/build/80754af9/toml_1592853716807/work
 Werkzeug==1.0.1
-wrapt @ file:///tmp/build/80754af9/wrapt_1607574498026/work
 WTForms==2.3.3
