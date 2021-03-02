@@ -12,3 +12,5 @@ def ekmek():
 print(ekmek())
 
 print(42)
+
+print("Hello World!")
