@@ -1,6 +1,6 @@
 
-from app import app
 
+from app import app
 
 
 # TERMINAL RUN COMMAND

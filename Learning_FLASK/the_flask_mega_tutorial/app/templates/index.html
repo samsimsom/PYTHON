@@ -1,17 +1,14 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Hi, {{ user.username }}!</h1>
+	<h1>Hi, {{ user.username }}!</h1>
 
-<h2>Lates Blog Posts:</h2>
-{% for post in posts %}
+	<h2>Lates Blog Posts:</h2>
+	{% for post in posts %}
 	<div>
-		<p>
-			{{ post.author.username }} says: <b>{{ post.body }}</b>
-		</p>
+	<p>{{ post.author.username }} says: <b>{{ post.body }}</b></p>
 	</div>
-{% endfor %}
+	{% endfor %} 
 
 {% endblock content %}
