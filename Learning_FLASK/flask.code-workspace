@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "domain_driven_design"
+		},
+		{
+			"path": "flask-tutorial"
 		}
 	],
 	"settings": {}
