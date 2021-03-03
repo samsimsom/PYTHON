@@ -1,11 +1,9 @@
 
 
-from app import app
+from app import app, db
+from app.models import User, Post
 
 
-# TERMINAL RUN COMMAND
-'''
-export FLASK_APP=main.py
-export FLASK_ENV=development
-flask run
-'''
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': User, 'Post': Post}

@@ -1,14 +1,13 @@
 
 from flask import (render_template,
                    flash,
-                   redirect,
-                   url_for)
-from app import app		# app package (directory) import app variable
+                   redirect)
+from app import app
 from app.forms import LoginForm
 
 
-@app.route('/')			# decorator from flask - URL
-@app.route('/index')  	# more URL
+@app.route('/')
+@app.route('/index')
 def index():
 
     title = 'Home'
