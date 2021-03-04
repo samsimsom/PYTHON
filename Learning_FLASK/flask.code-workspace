@@ -9,5 +9,8 @@
         {
             "path": "domain_driven_design"
         }
-    ]
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "the_flask_mega_tutorial"
+    }
 }
