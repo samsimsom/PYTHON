@@ -1,14 +1,13 @@
 {
-	"folders": [
-		{
-			"path": "the_flask_mega_tutorial"
-		},
-		{
-			"path": "domain_driven_design"
-		},
-		{
-			"path": "flask-tutorial"
-		}
-	],
-	"settings": {}
+    "folders": [
+        {
+            "path": "the_flask_mega_tutorial"
+        },
+        {
+            "path": "flask-tutorial"
+        },
+        {
+            "path": "domain_driven_design"
+        }
+    ]
 }
