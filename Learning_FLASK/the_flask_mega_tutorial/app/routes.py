@@ -1,5 +1,6 @@
 
 
+from datetime import datetime
 from flask import (request,
                    render_template,
                    flash,
@@ -15,6 +16,17 @@ from app.forms import LoginForm, RegistrationForm
 from app.models import User
 
 
+# ------------------------------------------------------------------------------
+# BEFORE REQUEST
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
+
+
+# ------------------------------------------------------------------------------
+# INDEX
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -101,6 +113,14 @@ def register():
 
 
 # ------------------------------------------------------------------------------
+# LOGOUT
+@app.route('/logut')
+def logout():
+    logout_user()
+    return redirect('index')
+
+
+# ------------------------------------------------------------------------------
 # ABOUT
 @app.route('/about')
 def about():
@@ -115,8 +135,17 @@ def contact():
 
 
 # ------------------------------------------------------------------------------
-# LOGOUT
-@app.route('/logut')
-def logout():
-    logout_user()
-    return redirect('index')
+# USER
+@app.route('/user/<username>')
+@login_required
+def user(username):
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = [
+        {'author': user, 'body': 'Test post #1'},
+        {'author': user, 'body': 'Test post #2'}
+    ]
+    title = user.username
+    return render_template('user.html',
+                           user=user,
+                           posts=posts,
+                           title=title)
