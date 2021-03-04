@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask.globals import current_app
 
 
 def create_app(test_config=None):
@@ -27,6 +28,13 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/hello')
     def hello():
-        return 'Hello, World!'
+        # return f"Hello, World! - {current_app.config['SECRET_KEY']}"
+        return f"Hello, World! - {current_app.config['DATABASE']}"
+
+    from . import db
+    db.init_app(app)
+
+    from . import auth
+    app.register_blueprint(auth.bp)
 
     return app
