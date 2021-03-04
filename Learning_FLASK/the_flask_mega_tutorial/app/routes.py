@@ -157,7 +157,7 @@ def user(username):
 @login_required
 def edit_profile():
 
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.username)
     title = 'Edit Profile'
 
     if form.validate_on_submit():
