@@ -1,6 +1,5 @@
 
 
-from os import error
 from flask import (Blueprint,
                    flash,
                    redirect,
@@ -24,7 +23,7 @@ def get_post(id, check_author=True):
     ).fetchone()
 
     if post is None:
-        abort(404, f'Post id {id} doenst\'t exist.')
+        abort(404, f'Post id {id} doesnt exist.')
 
     if check_author and post['author_id'] != g.user['id']:
         abort(403)
@@ -87,8 +86,7 @@ def update(id):
             db = get_db()
             db.execute(
                 'UPDATE post SET title = ?, body = ?'
-                ' WHERE id = ?',
-                (title, body, id))
+                ' WHERE id = ?', (title, body, id))
             db.commit()
             return redirect(url_for('blog.index'))
 
