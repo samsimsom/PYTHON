@@ -8,12 +8,15 @@ from flask_login import UserMixin
 from app import db, login
 
 
+# MANY to MANY Table
 followers = db.Table(
     'followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id')))
 
 
+# ------------------------------------------------------------------------------
+# USER / MODEL
 class User(UserMixin, db.Model):
     # COLUMN
     id = db.Column(db.Integer, primary_key=True)
@@ -37,7 +40,7 @@ class User(UserMixin, db.Model):
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password) -> bool:
         return check_password_hash(self.password_hash, password)
 
     def avatar(self, size):
@@ -52,15 +55,25 @@ class User(UserMixin, db.Model):
         if self.is_following(user):
             self.followed.remove(user)
 
-    def is_following(self, user):   # True or False
+    def is_following(self, user) -> bool:
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
 
+    def followed_posts(self):
+        followed = Post.query.join(
+            followers, (followers.c.followed_id == Post.user_id)).filter(
+                followers.c.follower_id == self.id)
+        return followed.union(self.posts).order_by(Post.timestamp.desc())
 
+
+# ------------------------------------------------------------------------------
+# POST / MODEL
 class Post(db.Model):
+    # COLUMN
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    # RELATIONSHIP
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
