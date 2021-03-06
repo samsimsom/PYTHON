@@ -1,6 +1,7 @@
 
 
 from datetime import datetime
+from operator import ne, pos
 from flask import (request,
                    render_template,
                    flash,
@@ -12,8 +13,8 @@ from flask_login import (current_user,
                          logout_user,
                          login_required)
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
+from app.models import User, Post
 
 
 # ------------------------------------------------------------------------------
@@ -27,39 +28,61 @@ def before_request():
 
 # ------------------------------------------------------------------------------
 # INDEX
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
 
     title = 'Home'
+    form = PostForm()
 
-    # FAKE DATA
-    user = {'username': 'Firat'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Ankara!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The X-Man movie was so cool!'
-        },
-        {
-            'author': {'username': 'Jessica'},
-            'body': 'I\'m so Hot!'
-        }
-    ]
+    if form.validate_on_submit():
+        post = Post(body=form.post.data, author=current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Your post is now live!')
+        return redirect(url_for('index'))
+
+    page = request.args.get('page', 1, type=int)
+    posts = current_user.followed_posts().paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('index', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('index', page=posts.prev_num) \
+        if posts.has_prev else None
 
     return render_template('index.html',
                            title=title,
                            user=user,
-                           posts=posts)
+                           posts=posts.items,
+                           next_url=next_url,
+                           prev_url=prev_url,
+                           form=form)
+
+
+# ------------------------------------------------------------------------------
+# EXPLORE
+@ app.route('/explore')
+@ login_required
+def explore():
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('explore', page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('explore', page=posts.prev_num) \
+        if posts.has_prev else None
+
+    return render_template('index.html',
+                           title='Explore',
+                           posts=posts.items,
+                           next_url=next_url,
+                           prev_url=prev_url)
 
 
 # ------------------------------------------------------------------------------
 # LOGIN
-@app.route('/login', methods=['GET', 'POST'])
+@ app.route('/login', methods=['GET', 'POST'])
 def login():
 
     if current_user.is_authenticated:
@@ -90,7 +113,7 @@ def login():
 
 # ------------------------------------------------------------------------------
 # REGISTER
-@app.route('/register', methods=['GET', 'POST'])
+@ app.route('/register', methods=['GET', 'POST'])
 def register():
 
     if current_user.is_authenticated:
@@ -114,7 +137,7 @@ def register():
 
 # ------------------------------------------------------------------------------
 # LOGOUT
-@app.route('/logut')
+@ app.route('/logut')
 def logout():
     logout_user()
     return redirect('index')
@@ -122,39 +145,45 @@ def logout():
 
 # ------------------------------------------------------------------------------
 # ABOUT
-@app.route('/about')
+@ app.route('/about')
 def about():
     return render_template('about.html')
 
 
 # ------------------------------------------------------------------------------
 # CONTACT
-@app.route('/contact')
+@ app.route('/contact')
 def contact():
     return 'Contact'
 
 
 # ------------------------------------------------------------------------------
 # USER
-@app.route('/user/<username>')
-@login_required
+@ app.route('/user/<username>')
+@ login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Test post #1'},
-        {'author': user, 'body': 'Test post #2'}
-    ]
+    page = request.args.get('page', 1, type=int)
+    posts = user.posts.order_by(Post.timestamp.desc()).paginate(
+        page, app.config['POSTS_PER_PAGE'], False)
+    next_url = url_for('user', username=user.username, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('user', username=user.username, page=posts.prev_num) \
+        if posts.has_prev else None
+
     title = user.username
     return render_template('user.html',
                            user=user,
-                           posts=posts,
-                           title=title)
+                           posts=posts.items,
+                           title=title,
+                           next_url=next_url,
+                           prev_url=prev_url)
 
 
 # ------------------------------------------------------------------------------
 # EDIT PROFILE
-@app.route('/edit_profile', methods=['GET', 'POST'])
-@login_required
+@ app.route('/edit_profile', methods=['GET', 'POST'])
+@ login_required
 def edit_profile():
 
     form = EditProfileForm(current_user.username)
@@ -177,8 +206,8 @@ def edit_profile():
 
 # ------------------------------------------------------------------------------
 # FOLLOW
-@app.route('/follow/<username>')
-@login_required
+@ app.route('/follow/<username>')
+@ login_required
 def follow(username):
 
     user = User.query.filter_by(username=username).first()
@@ -200,8 +229,8 @@ def follow(username):
 
 # ------------------------------------------------------------------------------
 # UNFOLLOW
-@app.route('/unfollow/<username>')
-@login_required
+@ app.route('/unfollow/<username>')
+@ login_required
 def unfollow(username):
 
     user = User.query.filter_by(username=username).first()
