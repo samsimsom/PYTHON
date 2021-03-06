@@ -8,6 +8,9 @@
         },
         {
             "path": "domain_driven_design"
+        },
+        {
+            "path": "SQLAlchemy_CRUD"
         }
     ],
     "settings": {
