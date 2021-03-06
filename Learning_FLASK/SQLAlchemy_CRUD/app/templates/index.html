@@ -17,6 +17,35 @@
     </div>
         {{ form.submit(class_="btn btn-dark btn-lg") }}
     </form>
+
+<hr class="dropdown-divider">
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Tweets</th>
+      <th scope="col">Date</th>
+      <th scope="col">Edit/Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for tweet in tweets %}
+    <tr>
+      <th scope="row">{{ tweet.id }}</th>
+      <td>{{ tweet.tweet }}</td>
+      <td>{{ tweet.timestamp }}</td>
+      <td>
+<div class="btn-group" role="group" aria-label="Basic example">
+  <button type="button" class="btn btn-success">Left</button>
+  <button type="button" class="btn btn-danger">Right</button>
+</div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 </div>
 
 {% endblock content %}

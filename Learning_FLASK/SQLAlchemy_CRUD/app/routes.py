@@ -9,6 +9,8 @@ from app.models import Tweet
 @app.route('/', methods=['GET', 'POST'])
 def index():
 
+    title = 'index'
+
     form = TweetForm()
     if form.validate_on_submit():
         tweet = Tweet(tweet=form.tweet.data)
@@ -16,4 +18,9 @@ def index():
         db.session.commit()
         return redirect(url_for('index'))
 
-    return render_template('index.html', form=form)
+    tweets = Tweet.query.order_by(Tweet.timestamp.desc()).all()
+
+    return render_template('index.html',
+                           title=title,
+                           form=form,
+                           tweets=tweets)
