@@ -1,5 +1,7 @@
 
 
+# ------------------------------------------------------------------------------
+# IMPORT
 from datetime import datetime
 from operator import ne, pos
 from flask import (request,
@@ -13,8 +15,14 @@ from flask_login import (current_user,
                          logout_user,
                          login_required)
 from app import app, db
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm
+from app.forms import (LoginForm,
+                       RegistrationForm,
+                       EditProfileForm,
+                       PostForm,
+                       ResetPasswordRequestForm,
+                       ResetPasswordForm)
 from app.models import User, Post
+from app.email import send_password_reset_email
 
 
 # ------------------------------------------------------------------------------
@@ -62,8 +70,8 @@ def index():
 
 # ------------------------------------------------------------------------------
 # EXPLORE
-@ app.route('/explore')
-@ login_required
+@app.route('/explore')
+@login_required
 def explore():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(Post.timestamp.desc()).paginate(
@@ -82,7 +90,7 @@ def explore():
 
 # ------------------------------------------------------------------------------
 # LOGIN
-@ app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
 
     if current_user.is_authenticated:
@@ -113,7 +121,7 @@ def login():
 
 # ------------------------------------------------------------------------------
 # REGISTER
-@ app.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
 
     if current_user.is_authenticated:
@@ -136,8 +144,50 @@ def register():
 
 
 # ------------------------------------------------------------------------------
+# RESET PASSWORD REQUEST
+@app.route('/reset_password_request', methods=['GET', 'POST'])
+def reset_password_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('Check your email for the instructions to reset your password')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password_request.html',
+                           title='Reset Password',
+                           form=form)
+
+
+# ------------------------------------------------------------------------------
+# RESET PASSWORD
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+
+    return render_template('reset_password.html',
+                           form=form)
+
+
+# ------------------------------------------------------------------------------
 # LOGOUT
-@ app.route('/logut')
+@app.route('/logut')
 def logout():
     logout_user()
     return redirect('index')
@@ -145,22 +195,22 @@ def logout():
 
 # ------------------------------------------------------------------------------
 # ABOUT
-@ app.route('/about')
+@app.route('/about')
 def about():
     return render_template('about.html')
 
 
 # ------------------------------------------------------------------------------
 # CONTACT
-@ app.route('/contact')
+@app.route('/contact')
 def contact():
     return 'Contact'
 
 
 # ------------------------------------------------------------------------------
 # USER
-@ app.route('/user/<username>')
-@ login_required
+@app.route('/user/<username>')
+@login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, type=int)
@@ -182,8 +232,8 @@ def user(username):
 
 # ------------------------------------------------------------------------------
 # EDIT PROFILE
-@ app.route('/edit_profile', methods=['GET', 'POST'])
-@ login_required
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
 def edit_profile():
 
     form = EditProfileForm(current_user.username)
@@ -206,8 +256,8 @@ def edit_profile():
 
 # ------------------------------------------------------------------------------
 # FOLLOW
-@ app.route('/follow/<username>')
-@ login_required
+@app.route('/follow/<username>')
+@login_required
 def follow(username):
 
     user = User.query.filter_by(username=username).first()
@@ -229,8 +279,8 @@ def follow(username):
 
 # ------------------------------------------------------------------------------
 # UNFOLLOW
-@ app.route('/unfollow/<username>')
-@ login_required
+@app.route('/unfollow/<username>')
+@login_required
 def unfollow(username):
 
     user = User.query.filter_by(username=username).first()
