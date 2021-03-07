@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block app_content %}
 
-    <h1>Hi, {{ current_user.username }}!</h1>
 
-    {% if form %}    
+{% if request.url_rule.endpoint == "index" %}
+<div class="container-fluid">
+    <h1 class="display-4">Hi, {{ current_user.username }}!</h1>
+    <hr class="my-4">
+</div>
+{% endif %}
+
+<div class="container-fluid">
+    {% if request.url_rule.endpoint == "index" %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.post.label }}
-            <hr>
-            {{ form.post(cols=32, rows=4) }}
         {% for error in form.post.errors %}
             <span style='color: red;'>[{{ error }}]</span>
         {% endfor %}
-        </p>
-        <p>{{ form.submit }}</p>
+
+        <div class="input-group input-group-lg">
+        <span class="input-group-text">{{ form.post.label }}</span>
+        {{ form.post(class_="form-control") }}
+        </div>
+        <div class="d-grid gap-2 mt-2">
+        {{ form.submit(class_="btn btn-secondary btn-lg")}}
+        </div>
     </form>
     {% endif %}
+</div>
 
-    <h2>Lates Blog Posts:</h2>
+<div class="container-fluid mt-5">
+    <h1 class="display-1">Lates Blog Posts :</h1>
+    <hr class="my-4">
     {% for post in posts %}
         {% include "_post.html" %}
     {% endfor %} 
+</div>
 
-    {% if prev_url %}
-    <a href="{{ prev_url }}">Newer posts</a>
-    {% endif %}
+<div class="container-fluid mt-5">
+    {% include "_pagination.html" %}
+</div>
 
-    {% if next_url %}
-    <a href="{{ next_url }}">Older posts</a>
-    {% endif %}
-
-{% endblock content %}
+{% endblock app_content %}
