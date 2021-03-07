@@ -1,50 +1,57 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    {% include "navbar.html" %}
-{% endblock navbar %}
+{% include "navbar.html" %}
+{%endblock navbar %}
 
 {% block content %}
 
 <div class="container-fluid">
-<h1>Hello Flask!</h1>
-    <form method="POST" action="{{ url_for('index') }}">
+
+  <div class="container-fluid">
+  <h1>Hello Flask!</h1>
+  <form method="POST" action="{{ url_for('index') }}">
     {{ form.hidden_tag() }}
     <div class="mb-3">
-        {{ form.tweet.label(class_="form-label-lg") }}
-        {{ form.tweet(class_="form-control form-control-lg") }}
-        <div id="tweet_help" class="form-text">Share your tweet just with 140 characters.</div>
+      {{ form.tweet.label(class_="form-label-lg") }}
+      {{form.tweet(class_="form-control form-control-lg") }}
+      <div id="tweet_help" class="form-text">
+        Share your tweet just with 140 characters.
+      </div>
     </div>
-        {{ form.submit(class_="btn btn-dark btn-lg") }}
-    </form>
+    {{ form.submit(class_="btn btn-dark btn-lg") }}
+  </form>
+  </div>
+  
+  <div class="container-fluid mt-5">
+  <hr class="dropdown-divider" />
 
-<hr class="dropdown-divider">
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Tweets</th>
-      <th scope="col">Date</th>
-      <th scope="col">Edit/Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for tweet in tweets %}
-    <tr>
-      <th scope="row">{{ tweet.id }}</th>
-      <td>{{ tweet.tweet }}</td>
-      <td>{{ tweet.timestamp }}</td>
-      <td>
-<div class="btn-group" role="group" aria-label="Basic example">
-  <button type="button" class="btn btn-success">Left</button>
-  <button type="button" class="btn btn-danger">Right</button>
-</div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tweets</th>
+        <th scope="col">Date</th>
+        <th scope="col">Edit/Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tweet in tweets %}
+      <tr>
+        <th scope="row">{{ tweet.id }}</th>
+        <td>{{ tweet.tweet }}</td>
+        <td>{{ tweet.timestamp }}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-success">Edit</button>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
 
 </div>
 
