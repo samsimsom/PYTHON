@@ -94,6 +94,21 @@
 					"label": ""
 				}
 			]
+		},
+		{
+			"path": "app/forms.py",
+			"bookmarks": [
+				{
+					"line": 17,
+					"column": 12,
+					"label": ""
+				},
+				{
+					"line": 28,
+					"column": 19,
+					"label": ""
+				}
+			]
 		}
 	]
 }

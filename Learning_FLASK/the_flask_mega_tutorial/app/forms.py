@@ -14,6 +14,8 @@ from wtforms.validators import (DataRequired,
 from app.models import User
 
 
+# ------------------------------------------------------------------------------
+# LOGIN FROM
 class LoginForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired()])
@@ -23,6 +25,8 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Sign In')
 
 
+# ------------------------------------------------------------------------------
+# REGISTRATION FROM
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired()])
