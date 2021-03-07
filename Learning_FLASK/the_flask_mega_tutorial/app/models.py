@@ -87,6 +87,8 @@ class User(UserMixin, db.Model):
         return User.query.get(id)
 
 
+# TODO: Olaylar!
+# FIXME: Bunlar Onemli!
 # ------------------------------------------------------------------------------
 # POST / MODEL
 class Post(db.Model):
