@@ -40,7 +40,10 @@
       <tr>
         <th scope="row">{{ tweet.id }}</th>
         <td>{{ tweet.tweet }}</td>
-        <td>{{ tweet.timestamp }}</td>
+        <td>
+        {{ moment(tweet.timestamp).format('MMMM Do YYYY, h:mm:ss a') }} | 
+        {{ moment(tweet.timestamp).fromTime(now) }}
+        </td>
         <td>
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success">Edit</button>

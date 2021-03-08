@@ -1,6 +1,7 @@
 
 
-from flask import render_template, redirect, url_for
+from datetime import datetime
+from flask import render_template, redirect, url_for, flash
 from app import app, db
 from app.forms import TweetForm
 from app.models import Tweet
@@ -16,6 +17,7 @@ def index():
         tweet = Tweet(tweet=form.tweet.data)
         db.session.add(tweet)
         db.session.commit()
+        flash('Your tweet is live')
         return redirect(url_for('index'))
 
     tweets = Tweet.query.order_by(Tweet.timestamp.desc()).all()
@@ -23,4 +25,5 @@ def index():
     return render_template('index.html',
                            title=title,
                            form=form,
-                           tweets=tweets)
+                           tweets=tweets,
+                           now=datetime.utcnow())

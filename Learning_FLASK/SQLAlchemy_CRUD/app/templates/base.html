@@ -9,6 +9,8 @@
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" 
     crossorigin="anonymous">
     {% block head %}{% endblock head %}
+    {{ moment.include_jquery() }}
+    {{ moment.include_moment() }}
     <title>SQLAlchemy - CRUD | {{ title }}</title>
   </head>
 
@@ -20,6 +22,7 @@
     </nav>
     
     <div class="container-fluid p-5" id="content">
+    {% include "_alert.html" %}
     <!-- CONTENT BLOCK START -->
     {% block content %}{% endblock content %}
     <!-- CONTENT BLOCK END -->
