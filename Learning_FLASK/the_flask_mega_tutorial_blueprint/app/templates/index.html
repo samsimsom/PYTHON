@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block app_content %}
+
+
+{% if request.url_rule.endpoint == "index" %}
+<div class="container-fluid">
+    <h1 class="display-2">Hi, {{ current_user.username }}!</h1>
+    <hr class="my-4">
+</div>
+{% endif %}
+
+<div class="container-fluid">
+    {% if request.url_rule.endpoint == "index" %}
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <div class="input-group input-group-lg">
+        <span class="input-group-text">{{ form.post.label }}</span>
+        {{ form.post(class_="form-control") }}
+        </div>
+        {% for error in form.post.errors %}
+            <span style='color: red;'>[{{ error }}]</span>
+        {% endfor %}
+        <div class="d-grid gap-2 mt-2">
+        {{ form.submit(class_="btn btn-light btn-lg")}}
+        </div>
+    </form>
+    {% endif %}
+</div>
+
+<div class="container-fluid mt-5">
+    <h1 class="display-3">Lates Blog Posts :</h1>
+    <hr class="my-4">
+    {% for post in posts %}
+        {% include "_post.html" %}
+    {% endfor %} 
+</div>
+
+<div class="container-fluid mt-5">
+    {% include "_pagination.html" %}
+</div>
+
+{% endblock app_content %}

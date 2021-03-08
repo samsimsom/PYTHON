@@ -1,0 +1,22 @@
+<div class="d-flex bd-highlight p-2 mb-1">
+<div class="d-flex flex-row bd-highlight">
+
+  <div class="bd-highlight p-2">
+    <img class="rounded" src="{{ post.author.avatar(76) }}">
+  </div>
+
+  <div class="bd-highlight">
+  <p class="display-6">{{ post.body }}</p>
+
+    <div class="d-flex flex-column bd-highlight align-self-end">
+    <div class="bd-highlight">
+    <p>
+        <a href="{{ url_for('user', username=post.author.username) }}" class="link-warning">
+        [{{ post.author.username }}]</a> said | {{ moment(post.timestamp).fromNow() }}
+    </p>
+    </div>
+    </div>
+
+  </div>
+</div>
+</div>
