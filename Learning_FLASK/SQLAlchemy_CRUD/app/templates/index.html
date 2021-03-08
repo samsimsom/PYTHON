@@ -36,10 +36,10 @@
       </tr>
     </thead>
     <tbody>
-      {% for tweet in tweets %}
+      {% for tweet in tweets |reverse %}
       <tr>
-        <th scope="row">{{ tweet.id }}</th>
-        <td>{{ tweet.tweet }}</td>
+        <th scope="row">{{ loop.index }}</th>
+        <td><strong>{{ tweet.tweet }}</strong></td>
         <td>
         {{ moment(tweet.timestamp).format('MMMM Do YYYY, h:mm:ss a') }} | 
         {{ moment(tweet.timestamp).fromTime(now) }}
@@ -47,7 +47,10 @@
         <td>
           <div class="btn-group" role="group" aria-label="Basic example">
             <button type="button" class="btn btn-success">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
+            <form action="{{ url_for('delete', id=tweet.id) }}" method="post">
+            {{ empty_form.hidden_tag() }}
+            {{ empty_form.submit(value='Delete', class_="btn btn-danger") }}
+          </form>
           </div>
         </td>
       </tr>

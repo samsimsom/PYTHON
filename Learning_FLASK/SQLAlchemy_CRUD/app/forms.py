@@ -9,3 +9,7 @@ class TweetForm(FlaskForm):
     tweet = StringField('Tweet',
                         validators=[DataRequired(), Length(min=0, max=140)])
     submit = SubmitField('submit')
+
+
+class EmptyForm(FlaskForm):
+    submit = SubmitField('submit')
