@@ -11,7 +11,7 @@
     <div class="d-flex flex-column bd-highlight align-self-end">
     <div class="bd-highlight">
     <p>
-        <a href="{{ url_for('user', username=post.author.username) }}" class="link-warning">
+        <a href="{{ url_for('main.user', username=post.author.username) }}" class="link-warning">
         [{{ post.author.username }}]</a> said | {{ moment(post.timestamp).fromNow() }}
     </p>
     </div>

@@ -3,7 +3,7 @@
 {% block app_content %}
 
 
-{% if request.url_rule.endpoint == "index" %}
+{% if request.url_rule.endpoint == "main.index" %}
 <div class="container-fluid">
     <h1 class="display-2">Hi, {{ current_user.username }}!</h1>
     <hr class="my-4">
@@ -11,7 +11,7 @@
 {% endif %}
 
 <div class="container-fluid">
-    {% if request.url_rule.endpoint == "index" %}
+    {% if request.url_rule.endpoint == "main.index" %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <div class="input-group input-group-lg">

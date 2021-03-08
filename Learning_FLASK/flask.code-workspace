@@ -11,6 +11,9 @@
         },
         {
             "path": "SQLAlchemy_CRUD"
+        },
+        {
+            "path": "the_flask_mega_tutorial_blueprint"
         }
     ],
     "settings": {
