@@ -3,7 +3,7 @@
 from datetime import datetime
 from flask import render_template, redirect, url_for, flash
 from app import app, db
-from app.forms import TweetForm, EmptyForm
+from app.forms import TweetForm, UpdateForm, EmptyForm
 from app.models import Tweet
 
 
@@ -30,8 +30,23 @@ def index():
 
 @app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
-    tweet = Tweet.query.get(id)
+    tweet = Tweet.query.get_or_404(id)
     db.session.delete(tweet)
     db.session.commit()
     flash('Tweet was deleted!', category='danger')
     return redirect(url_for('index'))
+
+
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    form = UpdateForm()
+    tweet = Tweet.query.get_or_404(id)
+    form.tweet.data = tweet.tweet
+    if form.validate_on_submit():
+        tweet = Tweet(tweet=form.tweet.data)
+        db.session.add(tweet)
+        db.session.commit()
+        flash('Your tweet was updated.', category='success')
+        return redirect(url_for('index'))
+
+    return render_template('update.html', form=form, id=id)

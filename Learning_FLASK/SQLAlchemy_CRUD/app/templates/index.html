@@ -39,7 +39,9 @@
       {% for tweet in tweets |reverse %}
       <tr>
         <th scope="row">{{ loop.index }}</th>
-        <td><strong>{{ tweet.tweet }}</strong></td>
+        <td>
+          <strong>{{ tweet.tweet }}</strong>
+        </td>
         <td>
         {{ moment(tweet.timestamp).format('MMMM Do YYYY, h:mm:ss a') }} | 
         {{ moment(tweet.timestamp).fromTime(now) }}

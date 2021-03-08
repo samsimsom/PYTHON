@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+{% include "navbar.html" %}
+{%endblock navbar %}
+
+{% block content %}
+
+<form action="">
+{{ form.tweet.label }}
+{{ form.tweet }}
+{{ form.submit }}
+</form>
+
+{% endblock content %}
