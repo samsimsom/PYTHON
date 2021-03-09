@@ -2,7 +2,7 @@
 
 import click
 from flask import Blueprint
-from database.database import db
+from extensions.database import db
 from models.model import Model
 
 commands = Blueprint('commands', __name__)

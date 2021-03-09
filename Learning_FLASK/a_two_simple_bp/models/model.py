@@ -1,6 +1,6 @@
 
 
-from database.database import db
+from extensions.database import db
 
 
 class Model(db.Model):

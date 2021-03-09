@@ -17,6 +17,9 @@
         },
         {
             "path": "a_one_simple_bp"
+        },
+        {
+            "path": "a_two_simple_bp"
         }
     ],
     "settings": {
