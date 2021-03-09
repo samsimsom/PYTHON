@@ -4,6 +4,7 @@ import os
 from flask import Flask
 from extensions import database, commands
 
+from blueprints.error.views import error
 from blueprints.main.views import main
 from blueprints.products.views import product
 from blueprints.contact.views import contact
@@ -18,6 +19,7 @@ def create_app():
     database.init_app(app)
     commands.init_app(app)
 
+    app.register_blueprint(error)
     app.register_blueprint(main)
     app.register_blueprint(product)
     app.register_blueprint(contact)
