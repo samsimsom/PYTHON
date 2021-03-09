@@ -2,7 +2,12 @@
 
 import os
 from flask import Flask
-from extensions import database, commands
+
+
+from database.database import db
+from commands.commands import commands
+from models.model import Model
+from extensions.migrate import migrate
 
 from blueprints.error.views import error
 from blueprints.main.views import main
@@ -16,14 +21,20 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
 
-    database.init_app(app)
-    commands.init_app(app)
+    db.init_app(app)
+    migrate.init_app(app, db)
 
+    app.register_blueprint(commands)
     app.register_blueprint(error)
+
     app.register_blueprint(main)
     app.register_blueprint(product)
     app.register_blueprint(contact)
     app.register_blueprint(about)
+
+    @app.shell_context_processor
+    def make_shell_context():
+        return {'db': db, 'model': Model}
 
     return app
 

@@ -1,7 +1,7 @@
 
 
 from flask import Blueprint, render_template
-from extensions.database import db
+from database.database import db
 
 error = Blueprint('error', __name__,
                   template_folder='templates',
