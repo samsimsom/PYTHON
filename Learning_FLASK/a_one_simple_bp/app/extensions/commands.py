@@ -1,9 +1,19 @@
 
-
+# ------------------------------------------------------------------------------
+# PYTHON IMPORT
 import click
+
+# ------------------------------------------------------------------------------
+# FLASK IMPORT
 from flask import Blueprint
-from database.database import db
-from models.model import Model
+
+# ------------------------------------------------------------------------------
+# EXTENSION IMPORT
+from app.extensions.sqlalchemy import db
+
+# ------------------------------------------------------------------------------
+# STRUCTURE IMPORT
+from app.models.model import Model
 
 commands = Blueprint('commands', __name__)
 
