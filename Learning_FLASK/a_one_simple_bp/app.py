@@ -2,7 +2,7 @@
 
 import os
 from flask import Flask
-from config import DevelopmentConfig
+from extensions import database, commands
 
 
 app = Flask(__name__)
@@ -14,5 +14,5 @@ def index():
     return f"Hello World!-{os.environ['APP_SETTINGS']}"
 
 
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
