@@ -15,5 +15,5 @@ class UpdateForm(TweetForm):
     pass
 
 
-class EmptyForm(FlaskForm):
+class SingleButtonForm(FlaskForm):
     submit = SubmitField('submit')
