@@ -6,7 +6,7 @@
 
 {% block content %}
 
-<form action="">
+<form action="{{ url_for('update', id=id) }}" method="POST">
 {{ form.hidden_tag() }}
 {{ form.tweet.label }}
 {{ form.tweet }}
