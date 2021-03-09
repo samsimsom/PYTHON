@@ -1,0 +1,11 @@
+.animatedbox {
+  width: 100px;
+  height: 100px;
+  background: red;
+  transition: width 2s;
+  transition-timing-function: cubic-bezier(0.1, 0.7, 1, 0.1);
+}
+
+.animatedbox:hover {
+  width: 300px;
+}

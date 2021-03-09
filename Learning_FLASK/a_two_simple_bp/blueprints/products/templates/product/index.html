@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock navbar %}
+
+{% block app_content %}
+<h1>Products Home Page</h1>
+<a href="{{ url_for('product.list_of_clothes') }}">Clothes</a>
+<a href="{{ url_for('product.list_of_shoes') }}">Shoes</a>
+<div class="animatedbox"></div>
+{% endblock app_content %}
