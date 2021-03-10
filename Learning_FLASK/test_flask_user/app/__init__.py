@@ -3,6 +3,8 @@ from os import environ
 from flask import Flask
 
 from app.extensions.database import db
+from app.extensions.user_manager import user_manager
+from app.extensions.mail import mail
 from app.extensions.migrate import migrate
 
 
@@ -14,6 +16,8 @@ def create_app():
 
     # Extension Initialization
     db.init_app(app)
+    user_manager.init_app(app)
+    mail.init_app(app)
     migrate.init_app(app, db)
 
     # Blueprint Registration

@@ -12,8 +12,25 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = environ.get('SECRET_KEY')
-    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLA_TRACK_MODIFICATIONS')
+    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get(
+        'SQLALCHEMY_TRACK_MODIFICATIONS')
     SQLALCHEMY_DATABASE_URI = environ.get('SQLALCHEMY_DATABASE_URI')
+
+    # Flask-Mail SMTP server settings
+    MAIL_SERVER = environ.get('MAIL_SERVER')
+    MAIL_PORT = int(environ.get('MAIL_PORT'))
+    MAIL_USE_SSL = environ.get('MAIL_USE_SSL')
+    MAIL_USE_TLS = environ.get('MAIL_USE_TLS')
+    MAIL_USERNAME = environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = environ.get('MAIL_PASSWORD')
+    MAIL_DEFAULT_SENDER = environ.get('MAIL_DEFAULT_SENDER')
+
+    # Flask-User settings
+    USER_APP_NAME = environ.get('USER_APP_NAME')
+    USER_ENABLE_EMAIL = environ.get('USER_ENABLE_EMAIL')
+    USER_ENABLE_USERNAME = environ.get('USER_ENABLE_USERNAME')
+    USER_EMAIL_SENDER_NAME = environ.get('USER_EMAIL_SENDER_NAME')
+    USER_EMAIL_SENDER_EMAIL = environ.get('USER_EMAIL_SENDER_EMAIL')
 
 
 class ProductionConfig(Config):
