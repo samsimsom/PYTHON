@@ -7,6 +7,9 @@
 {% endblock navbar %}
 
 {% block app_content %}
-<h1>Main Page /index</h1>
-current user : {{ current_user }}
+<h1>User Profile Page /profie</h1>
+
+<h1>Hi! {{ user.username }}</h1>
+<p>{{ user.email }}</p>
+
 {% endblock app_content %}

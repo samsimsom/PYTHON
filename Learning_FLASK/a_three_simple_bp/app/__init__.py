@@ -1,5 +1,6 @@
 
 from os import environ
+from pkgutil import iter_modules
 from flask import Flask
 
 from app.extensions.database import db
@@ -20,11 +21,17 @@ def create_app():
 
     # Blueprint Registration
     from app.routes import (main,
+                            auth,
+                            user,
                             about,
-                            auth)
+                            contact,
+                            error)
     app.register_blueprint(main)
-    app.register_blueprint(about)
     app.register_blueprint(auth)
+    app.register_blueprint(user)
+    app.register_blueprint(about)
+    app.register_blueprint(contact)
+    app.register_blueprint(error)
 
     return app
 
