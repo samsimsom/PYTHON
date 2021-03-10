@@ -20,6 +20,9 @@
         },
         {
             "path": "a_two_simple_bp"
+        },
+        {
+            "path": "a_three_simple_bp"
         }
     ],
     "settings": {
