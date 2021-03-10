@@ -4,7 +4,7 @@ from flask_user import UserMixin
 from app.extensions.database import db
 
 
-class User(db.Model, UserMixin):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
 
@@ -24,6 +24,9 @@ class User(db.Model, UserMixin):
 
     # Define the relationship to Role via UserRoles
     roles = db.relationship('Role', secondary='user_roles')
+
+    def is_enabled(self):
+        return True
 
 
 # Define the Role data-model

@@ -26,6 +26,9 @@
         },
         {
             "path": "test_flask_user"
+        },
+        {
+            "path": "test_flask_mail"
         }
     ],
     "settings": {
