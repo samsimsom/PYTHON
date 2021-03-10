@@ -23,6 +23,9 @@
         },
         {
             "path": "a_three_simple_bp"
+        },
+        {
+            "path": "test_flask_user"
         }
     ],
     "settings": {
