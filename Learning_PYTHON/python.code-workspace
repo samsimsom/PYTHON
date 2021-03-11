@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "decorators"
+		}
+	],
+	"settings": {
+		"python.pythonPath": "/home/mft/miniconda3/envs/flask/bin/python",
+		"jupyter.jupyterServerType": "local"
+	}
+}
