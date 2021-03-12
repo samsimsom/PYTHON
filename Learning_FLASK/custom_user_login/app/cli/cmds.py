@@ -4,6 +4,7 @@ import os
 import click
 from app.exts.database import db
 from app.models.user import User, Role
+from app.models.post import Category, Comment, Post
 
 
 def register(app):
@@ -65,3 +66,33 @@ def register(app):
             return
 
         print('Login.')
+
+# ------------------------------------------------------------------------------
+
+    @database.command('add-category')
+    @click.argument('name')
+    def add_category(name):
+        """Add New Category"""
+        c = Category()
+        c.name = name
+        c.slug = c.set_slug(name)
+        c.save()
+
+        print('New category added.')
+
+    @database.command('add-post')
+    @click.argument('author')
+    @click.argument('title')
+    @click.argument('description')
+    @click.argument('slug')
+    def add_post(author, title, description, slug):
+        """Add New Post"""
+        p = Post()
+        p.author = User.objects.get(username=author)
+        p.title = title
+        p.slug = p.set_slug(title)
+        p.description = description
+        p.category = [Category.objects.get(slug=slug)]
+        p.save()
+
+        print('New Post added.')
