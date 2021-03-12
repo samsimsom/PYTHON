@@ -1,6 +1,7 @@
 
 
-from flask import (render_template,
+from flask import (make_response,
+                   render_template,
                    redirect,
                    url_for,
                    flash,
@@ -13,6 +14,8 @@ from app.routes.auth import auth    # Blueprint
 from app.forms.form import LoginForm, RegistrationForm
 from app.models.user import User, Role
 
+COOKIE_TIME_OUT = (60 * 1)  # 5 minutes | 60*60*24*7 #7 days
+
 
 @auth.before_app_request
 def before_app_request():
@@ -22,16 +25,19 @@ def before_app_request():
         g.user = session['user']
 
 
+@auth.before_app_request        # session time-out
+def make_session_permanent():
+    session.permanent = True
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
 
     form = LoginForm()
 
     if form.validate_on_submit() and request.method == 'POST':
-        try:
-            user = User.objects.get(username=form.username.data)
-        except User.DoesNotExist:
-            user = None
+
+        user = User.objects.filter(username=form.username.data).first()
 
         if (user is None) or not (user.check_password(form.password.data)):
             flash('Invalid username or password.')
@@ -39,6 +45,12 @@ def login():
 
         # Login User
         session['user'] = user.username
+        if form.remember_me.data:
+            r = make_response(redirect(url_for('main.index')))
+            r.set_cookie('username', user.username, max_age=COOKIE_TIME_OUT)
+            print('DONE!')
+            return r
+
         next_page = request.args.get('next')
         print(f'Next Page: {next_page}')
 
@@ -74,5 +86,7 @@ def register():
 
 @auth.route('/logout')
 def logout():
-    session.pop('user', None)
+    if 'user' in session:
+        session.pop('user', None)
+
     return redirect(url_for('main.index'))

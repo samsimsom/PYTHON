@@ -9,6 +9,7 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object(environ.get('APP_CONFIG'))
+    app.session_interface
 
     db.init_app(app)
 

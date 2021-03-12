@@ -21,7 +21,9 @@ class User(db.Document):
     role = db.ReferenceField(Role, reverse_delete_rule=db.CASCADE)
     creation_date = db.DateTimeField(default=datetime.utcnow())
 
-    meta = {'collection': 'user', 'indexes': ['username', 'email']}
+    meta = {'collection': 'user', 'indexes': ['username',
+                                              'email',
+                                              '-creation_date']}
 
     def __repr__(self) -> str:
         return f'<User | username: {self.username}, email: {self.email}>'
