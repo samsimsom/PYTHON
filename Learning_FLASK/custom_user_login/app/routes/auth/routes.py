@@ -23,14 +23,8 @@ def before_app_request():
         g.user = session['user']
 
 
-@auth.before_app_request        # session time-out
-def make_session_permanent():
-    session.permanent = False
-
-
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-
     form = LoginForm()
 
     if form.validate_on_submit() and request.method == 'POST':
@@ -43,10 +37,10 @@ def login():
 
         # Login User
         session['user'] = user.username
-        if form.remember_me.data:
-            r = make_response(redirect(url_for('auth.login')))
-            r.set_cookie('username', user.username, max_age=(60 * 60 * 24 * 7))
-            return r
+        # if form.remember_me.data:
+        #     r = make_response(redirect(url_for('auth.login')))
+        #     r.set_cookie('username', user.username, max_age=(60 * 60 * 24 * 7))
+        #     return r
 
         next_page = request.args.get('next')
         print(f'Next Page: {next_page}')

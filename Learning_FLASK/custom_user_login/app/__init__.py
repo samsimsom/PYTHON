@@ -2,14 +2,14 @@
 from os import environ
 from flask import Flask
 
-from app.exts.database import db
+from app.exts.database import db, session_interface
 
 
 def create_app():
 
     app = Flask(__name__)
     app.config.from_object(environ.get('APP_CONFIG'))
-    app.session_interface
+    app.session_interface = session_interface(db)
 
     db.init_app(app)
 
