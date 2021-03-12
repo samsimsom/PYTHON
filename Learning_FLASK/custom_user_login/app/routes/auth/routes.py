@@ -6,6 +6,7 @@ from app.routes.auth import auth
 
 from app.forms.form import LoginForm, RegistrationForm
 
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
@@ -14,7 +15,12 @@ def login():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+
     form = RegistrationForm()
+
+    if form.validate_on_submit():
+        pass
+
     return render_template('auth/register.html', form=form)
 
 
