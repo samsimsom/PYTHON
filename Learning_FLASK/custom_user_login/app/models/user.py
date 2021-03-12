@@ -11,7 +11,7 @@ class User(db.Document):
     email = db.StringField(max_length=120, required=True, unique=True)
     password_hash = db.StringField(max_length=128, required=True)
 
-    meta = {'collection': 'user'}
+    meta = {'collection': 'user', 'indexes': ['username', 'email']}
 
     def __repr__(self) -> str:
         return f'<User | username: {self.username}, email: {self.email}>'
