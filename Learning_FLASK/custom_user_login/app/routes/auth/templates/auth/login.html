@@ -22,7 +22,11 @@
 {% endfor %}
 </div>
     {{ form.username.label(class_='form-label') }}
+    {% if 'username' in request.cookies %}
+    {{ form.username(class_='form-control', value=request.cookies.get('username')) }}
+    {% else %}
     {{ form.username(class_='form-control') }}
+    {% endif %}
     <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
   </div>
   <div class="mb-3">

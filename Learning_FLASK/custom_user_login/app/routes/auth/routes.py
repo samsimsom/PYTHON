@@ -14,8 +14,6 @@ from app.routes.auth import auth    # Blueprint
 from app.forms.form import LoginForm, RegistrationForm
 from app.models.user import User, Role
 
-COOKIE_TIME_OUT = (60 * 1)  # 5 minutes | 60*60*24*7 #7 days
-
 
 @auth.before_app_request
 def before_app_request():
@@ -27,7 +25,7 @@ def before_app_request():
 
 @auth.before_app_request        # session time-out
 def make_session_permanent():
-    session.permanent = True
+    session.permanent = False
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -46,9 +44,8 @@ def login():
         # Login User
         session['user'] = user.username
         if form.remember_me.data:
-            r = make_response(redirect(url_for('main.index')))
-            r.set_cookie('username', user.username, max_age=COOKIE_TIME_OUT)
-            print('DONE!')
+            r = make_response(redirect(url_for('auth.login')))
+            r.set_cookie('username', user.username, max_age=(60 * 60 * 24 * 7))
             return r
 
         next_page = request.args.get('next')
