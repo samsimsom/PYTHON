@@ -1,30 +1,28 @@
 
 
-from flask import (make_response,
-                   render_template,
-                   redirect,
-                   url_for,
-                   flash,
-                   request,
-                   session,
-                   g)
-
+from flask import (render_template, redirect, url_for, flash,
+                   request, session, g)
 from werkzeug.urls import url_parse
+
 from app.routes.auth import auth    # Blueprint
 from app.forms.form import LoginForm, RegistrationForm
 from app.models.user import User, Role
+from app.utils.decorators import login_required
 
 
 @auth.before_app_request
 def before_app_request():
     g.user = None
-
     if 'user' in session:
         g.user = session['user']
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+
+    if 'user' in session:
+        return redirect(url_for('main.index'))
+
     form = LoginForm()
 
     if form.validate_on_submit() and request.method == 'POST':
@@ -35,19 +33,17 @@ def login():
             flash('Invalid username or password.')
             return redirect(url_for('auth.login'))
 
-        # Login User
         session['user'] = user.username
-        # if form.remember_me.data:
-        #     r = make_response(redirect(url_for('auth.login')))
-        #     r.set_cookie('username', user.username, max_age=(60 * 60 * 24 * 7))
-        #     return r
+        if form.remember_me.data:
+            session.permanent = True
+        else:
+            session.permanent = False
 
+        # FIXME:
+        # TODO: Login sonrasi yonlendirme! next_page empty!
         next_page = request.args.get('next')
-        print(f'Next Page: {next_page}')
-
         if not next_page or (url_parse(next_page).netloc != ''):
             next_page = url_for('main.index')
-
         return redirect(next_page)
 
     return render_template('auth/login.html',
@@ -56,6 +52,9 @@ def login():
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
+
+    if 'user' in session:
+        return redirect(url_for('main.index'))
 
     form = RegistrationForm()
 
@@ -76,6 +75,7 @@ def register():
 
 
 @auth.route('/logout')
+@login_required
 def logout():
     if 'user' in session:
         session.pop('user', None)

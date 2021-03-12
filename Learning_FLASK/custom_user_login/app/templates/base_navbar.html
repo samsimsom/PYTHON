@@ -25,29 +25,17 @@
           <a class="nav-link {% if request.url_rule.endpoint == 'about.index' %}active{% endif %}"
            href="{{ url_for('about.index') }}">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.url_rule.endpoint == 'auth.login' %}active{% endif %}"
-           href="{{ url_for('auth.login') }}">Login</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.url_rule.endpoint == 'auth.register' %}active{% endif %}"
-           href="{{ url_for('auth.register') }}">Register</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link {% if request.url_rule.endpoint == 'auth.logout' %}active{% endif %}"
-           href="{{ url_for('auth.logout') }}">Logout</a>
-        </li>
-        {#
-        {% if current_user.is_authenticated %}
+
+        {% if session['user'] %}
         <!-- Dropdown User -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ current_user.username|capitalize }}
+            {{ session['user']|capitalize }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" 
-                   href="{{ url_for('user.profile', username=current_user.username) }}">Profile</a></li>
+                   href="{{ url_for('user.profile', username=session['user']) }}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
           </ul>
@@ -67,7 +55,7 @@
         </li>
         <!-- Dropdown Anonymous /-->
         {% endif %}
-        #}
+        
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -15,6 +15,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = environ.get('SECRET_KEY')
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
 
     # Mongoengine
     MONGODB_DB = environ.get('MONGODB_DB')
