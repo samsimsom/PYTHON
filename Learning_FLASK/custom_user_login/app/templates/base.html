@@ -30,9 +30,9 @@
     <!-- title -->
     {% block title %}
       {% if title %}
-        <title>User System | {{ title }}</title>
+        <title>Blueprint | {{ title }}</title>
       {% else %}
-        <title>Welcome to User System</title>
+        <title>Welcome to Blueprint</title>
       {% endif %}
     {% endblock title %}
     <!-- title /-->
@@ -43,7 +43,7 @@
   <body>
     <!-- navbar -->
     {% block navbar %}
-    {% include "navbar.html" %}
+    {% include "base_navbar.html" %}
     {% endblock navbar %}
     <!-- navbar /-->
 

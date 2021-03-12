@@ -12,6 +12,17 @@ def create_app():
 
     db.init_app(app)
 
+    # Blueprint Registration
+    from app.routes import (main, auth, user, about, contact, error)
+    app.register_blueprint(main)
+    app.register_blueprint(auth)
+    app.register_blueprint(user)
+    app.register_blueprint(about)
+    app.register_blueprint(contact)
+    app.register_blueprint(error)
+
+    return app
+
 
 if __name__ == '__main__':
     create_app().run()

@@ -15,11 +15,11 @@ class Config(object):
     SECRET_KEY = environ.get('SECRET_KEY')
 
     # Mongoengine
-    MONGODB_DB = environ.get('SECRET_KEY')
-    MONGODB_HOST = environ.get('SECRET_KEY')
-    MONGODB_PORT = int(environ.get('SECRET_KEY'))
-    MONGODB_USERNAME = environ.get('SECRET_KEY')
-    MONGODB_PASSWORD = environ.get('SECRET_KEY')
+    MONGODB_DB = environ.get('MONGODB_DB')
+    MONGODB_HOST = environ.get('MONGODB_HOST')
+    MONGODB_PORT = int(environ.get('MONGODB_PORT'))
+    MONGODB_USERNAME = environ.get('MONGODB_USERNAME')
+    MONGODB_PASSWORD = environ.get('MONGODB_PASSWORD')
 
 
 class ProductionConfig(Config):
