@@ -41,8 +41,9 @@ def login():
 
         # FIXME:
         # TODO: Login sonrasi yonlendirme! next_page empty!
-        next_page = request.args.get('next')
-        if not next_page or (url_parse(next_page).netloc != ''):
+        next_page = request.form.get('next_page')
+        print(next_page)
+        if not next_page and url_parse(next_page).netloc != '':
             next_page = url_for('main.index')
         return redirect(next_page)
 
@@ -63,6 +64,7 @@ def register():
         user.username = form.username.data
         user.email = form.email.data
         user.set_password(form.password.data)
+        user.set_slug(form.username.data)
         user.role = Role.objects.get(id='604b33c1337f0cdd73f39995')
         user.save()
 

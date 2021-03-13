@@ -1,6 +1,7 @@
 
 
 from datetime import datetime
+from slugify import slugify
 from hashlib import md5
 from werkzeug.security import (generate_password_hash,
                                check_password_hash)
@@ -18,12 +19,16 @@ class User(db.Document):
     username = db.StringField(max_length=64, required=True, unique=True)
     email = db.EmailField(max_length=128, required=True, unique=True)
     password_hash = db.StringField(max_length=128, required=True)
+    slug = db.StringField(max_length=128)
     role = db.ReferenceField(Role, reverse_delete_rule=db.CASCADE)
     creation_date = db.DateTimeField(default=datetime.utcnow())
 
     meta = {'collection': 'user', 'indexes': ['username',
                                               'email',
                                               '-creation_date']}
+
+    def set_slug(self, name):
+        return slugify(name)
 
     def __repr__(self) -> str:
         return f'<User | username: {self.username}, email: {self.email}>'

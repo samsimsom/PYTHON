@@ -9,7 +9,7 @@ from app.models.user import User
 
 class Category(db.Document):
     name = db.StringField(max_length=128, required=True, unique=True)
-    slug = db.StringField(max_length=128, required=True)
+    slug = db.StringField(max_length=128)
     description = db.StringField(max_length=512)
     creation_date = db.DateTimeField(default=datetime.utcnow())
 
@@ -33,7 +33,7 @@ class Comment(db.Document):
 class Post(db.Document):
     author = db.ReferenceField(User, reverse_delete_rule=db.CASCADE)
     title = db.StringField(max_length=128, required=True)
-    slug = db.StringField(max_length=128, required=True)
+    slug = db.StringField(max_length=128)
     description = db.StringField(max_length=1024)
     creation_date = db.DateTimeField(default=datetime.utcnow())
     weight = db.IntField(min_value=0)
