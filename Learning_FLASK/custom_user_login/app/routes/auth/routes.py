@@ -27,23 +27,24 @@ def login():
 
     if form.validate_on_submit() and request.method == 'POST':
 
-        user = User.objects.filter(username=form.username.data).first()
+        user = User.objects.filter(email=form.email.data.lower()).first()
 
         if (user is None) or not (user.check_password(form.password.data)):
             flash('Invalid username or password.')
             return redirect(url_for('auth.login'))
 
-        session['user'] = user.username
+        # User Login and Remeber_Me
+        session['user'] = {'username': user.username,
+                           'slug': user.slug,
+                           'email': user.email}
         if form.remember_me.data:
             session.permanent = True
         else:
             session.permanent = False
 
-        # FIXME:
-        # TODO: Login sonrasi yonlendirme! next_page empty!
         next_page = request.form.get('next_page')
         print(next_page)
-        if not next_page and url_parse(next_page).netloc != '':
+        if (not next_page) and (url_parse(next_page).netloc != ''):
             next_page = url_for('main.index')
         return redirect(next_page)
 
@@ -61,11 +62,11 @@ def register():
 
     if form.validate_on_submit() and request.method == 'POST':
         user = User()
-        user.username = form.username.data
-        user.email = form.email.data
+        user.set_username(form.username.data)
+        user.set_email(form.email.data)
         user.set_password(form.password.data)
-        user.set_slug(form.username.data)
-        user.role = Role.objects.get(id='604b33c1337f0cdd73f39995')
+        user.set_slug(user.username)
+        user.role = Role.objects.get(id='604b33c1337f0cdd73f39995')  # FIXME:
         user.save()
 
         flash('Congratulations, you are now a registered user!')

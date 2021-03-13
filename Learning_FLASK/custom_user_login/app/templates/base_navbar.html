@@ -31,11 +31,11 @@
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" 
           role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ session['user']|capitalize }}
+            {{ session['user']['username']|capitalize }}
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" 
-                   href="{{ url_for('user.profile', username=session['user']) }}">Profile</a></li>
+                   href="{{ url_for('user.profile', slug=session['user']['slug']) }}">Profile</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}">Logout</a></li>
           </ul>

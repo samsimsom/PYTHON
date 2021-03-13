@@ -27,9 +27,6 @@ class User(db.Document):
                                               'email',
                                               '-creation_date']}
 
-    def set_slug(self, name):
-        return slugify(name)
-
     def __repr__(self) -> str:
         return f'<User | username: {self.username}, email: {self.email}>'
 
@@ -38,3 +35,12 @@ class User(db.Document):
 
     def check_password(self, password) -> bool:
         return check_password_hash(self.password_hash, password)
+
+    def set_slug(self, username):
+        self.slug = slugify(username)
+
+    def set_username(self, username):
+        self.username = ' '.join(str(username).split()).lower()
+
+    def set_email(self, email):
+        self.email = str(email).lower()

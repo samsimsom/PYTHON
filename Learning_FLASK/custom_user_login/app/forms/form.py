@@ -1,5 +1,6 @@
 
 
+import re
 from flask_wtf import FlaskForm
 from wtforms import (StringField,
                      PasswordField,
@@ -13,7 +14,7 @@ from app.models.user import User
 
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In')
@@ -29,6 +30,9 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_username(self, username):
+        if not re.match("^[a-zA-Z\s]*$", username.data):
+            raise ValidationError('[a-z A-Z and space]')
+
         try:
             user = User.objects.get(username=username.data)
         except User.DoesNotExist:

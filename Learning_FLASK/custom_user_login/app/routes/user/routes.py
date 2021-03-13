@@ -1,15 +1,16 @@
 
 
-from flask import render_template
+from flask import render_template, session
 from app.routes.user import user    # Blueprint
 from app.models.user import User
 from app.utils.decorators import login_required
 
 
-@user.route('/<username>')
+@user.route('/<slug>')
 @login_required
-def profile(username):
+def profile(slug):
 
-    user = User.objects.get_or_404(username=username)
+    email = session['user']['email']
+    user = User.objects.get_or_404(email=email)
 
-    return render_template('user/profile.html')
+    return render_template('user/profile.html', user=user)
