@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% include "include/_bootstrap-cdn.html" %}
+    <title>
+        {% if title %}
+            {{ title }} | Flask REST-API
+        {% else %}
+            Flask REST-API
+        {% endif %}
+    </title>
+  </head>
+  <body>
+    {% include "include/_navbar.html" %}
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+    {% include "include/_bootstrap-js.html" %}
+  </body>
+</html>
