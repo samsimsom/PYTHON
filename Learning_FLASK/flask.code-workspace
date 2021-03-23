@@ -32,6 +32,9 @@
         },
         {
             "path": "custom_user_login"
+        },
+        {
+            "path": "../../portfolio-flask"
         }
     ],
     "settings": {

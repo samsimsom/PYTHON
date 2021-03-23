@@ -4,4 +4,53 @@
 
 {% block content %}
 <h1>Hello World!</h1>
+
+<hr>
+
+<form>
+<div class="mb-3">
+  <label for="post-textarea" class="form-label">Post</label>
+  <textarea class="form-control" id="post-textarea" rows="3"></textarea>
+</div>
+<button type="submit" class="btn btn-primary" onclick="submit_message()">Submit</button>
+</form>
+
+<p id="text"></p>
+
+<script>
+    function submit_message() {
+
+        var post = document.getElementById("post-textarea");
+
+        var entry = {
+            post: post.value,
+        };
+
+    fetch(`${window.origin}/guestbook/create-entry`, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(entry),
+      cache: "no-cache",
+      headers: new Headers({
+        "content-type": "application/json"
+      })
+    })
+      .then(function (response) {
+        if (response.status !== 200) {
+          console.log(`Looks like there was a problem. Status code: ${response.status}`);
+          return;
+        }
+        response.json().then(function (data) {
+          console.log(data);
+          document.getElementById("text").innerHTML = data;
+        });
+      })
+      .catch(function (error) {
+        console.log("Fetch error: " + error);
+      });
+
+  }
+</script>
+
+
 {% endblock content %}
