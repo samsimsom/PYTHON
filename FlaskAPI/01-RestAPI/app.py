@@ -18,8 +18,6 @@ def index():
 
 @app.route("/guestbook")
 def guestbook():
-
-
     return render_template("index.html")
 
 
