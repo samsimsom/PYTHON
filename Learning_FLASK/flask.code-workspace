@@ -35,6 +35,9 @@
         },
         {
             "path": "../../portfolio-flask"
+        },
+        {
+            "path": "materialize-flask"
         }
     ],
     "settings": {
