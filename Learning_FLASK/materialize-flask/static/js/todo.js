@@ -11,6 +11,9 @@ loadEventListeners();
 
 function loadEventListeners() {
   form.addEventListener("submit", addTask);
+  taskList.addEventListener("click", removeTask);
+  clearBtn.addEventListener("click", clearTasks);
+  filterInput.addEventListener("keyup", filterTasks);
 }
 
 // Add Task
@@ -27,7 +30,7 @@ function addTask(e) {
 
   // create new close link
   let link = document.createElement("a");
-  link.className = "secondary-content";
+  link.className = "delete-item secondary-content";
   link.innerHTML = '<i class="material-icons">clear</i>';
   li.appendChild(link);
 
@@ -39,4 +42,34 @@ function addTask(e) {
 
   console.log("Submit!");
   e.preventDefault();
+}
+
+// Remove Task
+function removeTask(e) {
+  if (e.target.parentElement.classList.contains("delete-item")) {
+    if (confirm("Are you sure?")) {
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+// Clear Tasks
+function clearTasks() {
+  while (taskList.firstChild) {
+    taskList.removeChild(taskList.firstChild);
+  }
+}
+
+// Filter Tasks
+function filterTasks(e) {
+  let text = e.target.value.toLowerCase();
+  document.querySelectorAll(".collection-item").forEach
+  (function (task) {
+    let item = task.firstChild.textContent;
+    if (item.toLowerCase().indexOf(text) != -1) {
+      task.style.display = "block";
+    } else {
+      task.style.display = "none";
+    }
+  });
 }

@@ -25,11 +25,6 @@ class Tasks(db.Document):
 @app.route('/')
 def index():
     title = 'Main'
-
-    task = Tasks()
-    task.task = 'Test Task'
-    task.save()
-
     return render_template('index.html',
                            title=title)
 
