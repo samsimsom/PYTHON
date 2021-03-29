@@ -41,6 +41,9 @@ function addTask(e) {
   taskInput.value = "";
 
   console.log("Submit!");
+
+  // fetch('/add_todo').then(res => console.log(res));
+
   e.preventDefault();
 }
 

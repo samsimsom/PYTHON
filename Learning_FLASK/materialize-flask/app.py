@@ -1,7 +1,7 @@
 
 import os
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, make_response
 from flask_mongoengine import MongoEngine
 from config import Config
 
@@ -25,6 +25,11 @@ class Tasks(db.Document):
 @app.route('/')
 def index():
     title = 'Main'
+
+    # task = Tasks()
+    # task.task = 'test task added!'
+    # task.save()
+
     return render_template('index.html',
                            title=title)
 
@@ -35,6 +40,12 @@ def todo():
 
     return render_template('/todo.html',
                            title=title)
+
+
+@app.route('/add_todo', methods=['GET', 'POST'])
+def add_todo():
+
+    return make_response()
 
 
 if __name__ == '__main__':
