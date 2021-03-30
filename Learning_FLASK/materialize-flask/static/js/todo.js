@@ -68,13 +68,39 @@ function addTask(e) {
 
   // Store in LocalStorage
   storeTaskInLocalStorage(taskInput.value);
+  storeTaskInMongo(taskInput.value);
 
   // clear input
   taskInput.value = "";
 
-  // fetch('/add_todo').then(res => console.log(res));
-
   e.preventDefault();
+}
+
+// Store in Local Storage
+function storeTaskInLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// store in mongo
+function storeTaskInMongo(task) {
+  fetch(`${window.origin}/add_todo`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      task: task
+    })
+  }).then(res => console.log(res));
+
 }
 
 // Remove Task
@@ -136,15 +162,4 @@ function filterTasks(e) {
   });
 }
 
-// Store in Local Storage
-function storeTaskInLocalStorage(task) {
-  let tasks;
-  if (localStorage.getItem("tasks") === null) {
-    tasks = [];
-  } else {
-    tasks = JSON.parse(localStorage.getItem("tasks"));
-  }
 
-  tasks.push(task);
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}

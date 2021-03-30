@@ -1,7 +1,11 @@
 
 import os
 from datetime import datetime
-from flask import Flask, render_template, make_response
+from flask import (Flask,
+                   render_template,
+                   request,
+                   make_response,
+                   jsonify)
 from flask_mongoengine import MongoEngine
 from config import Config
 
@@ -26,10 +30,6 @@ class Tasks(db.Document):
 def index():
     title = 'Main'
 
-    # task = Tasks()
-    # task.task = 'test task added!'
-    # task.save()
-
     return render_template('index.html',
                            title=title)
 
@@ -42,10 +42,17 @@ def todo():
                            title=title)
 
 
-@app.route('/add_todo', methods=['GET', 'POST'])
+@app.route('/add_todo', methods=['POST'])
 def add_todo():
 
-    return make_response()
+    request_task = request.get_json()
+
+    task = Tasks()
+    task.task = request_task['task']
+    result = task.save()
+    print(result)
+
+    return make_response(jsonify({'message': 'Good'}), 200)
 
 
 if __name__ == '__main__':
