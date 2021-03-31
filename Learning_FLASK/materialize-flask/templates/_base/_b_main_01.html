@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- links -->
+    {% include "_base/_b_link_01.html" %}
+  
+    {% block title %}
+    <title>
+      materialize | {% if title %}{{ title }}{% else %}{{ 'title' }}{% endif %}
+    </title>
+    {% endblock title %}
+  </head>
+  <body>
+
+    <div class="container">
+      {% include "_base/_b_navbar_01.html" %}
+    </div>
+
+    <div class="container">
+      {% block content %}
+        {% block app_content %}{% endblock app_content %} 
+      {%endblock content %}
+    </div>
+
+    {% include "_base/_b_js_01.html" %}
+    {% block script %}{% endblock script %}
+  </body>
+</html>

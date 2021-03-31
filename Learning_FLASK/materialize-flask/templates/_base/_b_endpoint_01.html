@@ -1,0 +1,7 @@
+{% macro a(class, href='#', text='Link Text') %}
+  {% if request.url_rule.endpoint == href %}
+    <a class="{{ class }} {{ 'active' }}" href="{{ url_for(href) }}">{{ text|safe }}</a>
+  {% else %}
+    <a class="{{ class }}" href="{{ url_for(href) }}">{{ text|safe }}</a>
+  {% endif %}
+{% endmacro %}
