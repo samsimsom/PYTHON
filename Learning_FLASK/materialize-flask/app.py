@@ -42,16 +42,18 @@ def todo():
                            title=title)
 
 
+@app.route('/get_todo', methods=['GET'])
+def get_todo():
+    tasks = Tasks.objects()
+    return make_response(jsonify(tasks))
+
+
 @app.route('/add_todo', methods=['POST'])
 def add_todo():
-
     request_task = request.get_json()
-
     task = Tasks()
     task.task = request_task['task']
-    result = task.save()
-    print(result)
-
+    task.save()
     return make_response(jsonify({'message': 'Good'}), 200)
 
 
