@@ -15,7 +15,7 @@ function loadEventListeners() {
   form.addEventListener("submit", addTask);
   taskList.addEventListener("click", removeTask);
   filterInput.addEventListener("keyup", filterTasks);
-  clearBtn.addEventListener("click", clearTasks);
+  // clearBtn.addEventListener("click", clearTasks);
 }
 
 // Create Task Element
@@ -110,9 +110,9 @@ function removeTaskFromLocalStorage(taskItem) {
 }
 
 // Remove All From Local Storage
-function clearTasksFromLocalStorage() {
-  localStorage.clear();
-}
+// function clearTasksFromLocalStorage() {
+//   localStorage.clear();
+// }
 
 // -----------------------------------------------------------------------------
 // Clear Tasks
