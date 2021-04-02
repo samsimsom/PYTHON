@@ -26,7 +26,7 @@ function createTaskElement(task) {
   li.id = Date.now().toString();
   li.innerHTML = `
     <div class="d-flex flex-row" id="collection-element">
-      <div class="d-flex flex-fill">${task["task"]}</div>
+      <div class="d-flex flex-fill">${task}</div>
       <div class="d-flex">
         <button 
           type="button" 
@@ -45,12 +45,10 @@ function createTaskElement(task) {
 // Add Task
 function addTask(e) {
   // store task in database
-  store_task_in_mongo(taskInput.value);
-  // clear all tasks from html
-  clear_tasks_from_html();
-  // get task from db and recreate all task in html
-  get_task_from_mongo();
+  console.log(store_task_in_mongo(taskInput.value));
 
+
+  createTaskElement(taskInput.value);
   // Clear Task Input
   taskInput.value = "";
 
@@ -128,7 +126,7 @@ function get_task_from_mongo() {
     .then((responce) => responce.json())
     .then((tasks) => {
       tasks.forEach(function (task) {
-        createTaskElement(task);
+        createTaskElement(task['task']);
       });
     });
 }
@@ -143,7 +141,9 @@ function store_task_in_mongo(task) {
     body: JSON.stringify({
       task: task,
     }),
-  }).then((res) => console.log(res));
+  }).then((res) => {
+    console.log(res.ok);
+  });
 }
 
 /*
