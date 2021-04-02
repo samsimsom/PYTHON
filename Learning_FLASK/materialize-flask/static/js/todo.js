@@ -54,7 +54,6 @@ function addTask(e) {
   e.preventDefault();
 }
 
-
 // Remove Task
 function removeTask(e) {
   let taskElement = document.getElementById(e.target.id);
