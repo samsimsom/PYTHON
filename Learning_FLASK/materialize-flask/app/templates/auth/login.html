@@ -2,22 +2,58 @@
 
 {% block app_content %}
 
-<h1>Login Page!</h1>
-<hr class="divider" />
 
 <div class="container">
+    <div class="row justify-content-md-center ">
+      <div class="col-6 mx-auto shadow-lg p-3 bg-body rounded login-card">
+      <h1>Login</h1>
+      <hr class="divider" />
+
   <div class="form-group">
-    <div class="row justify-content-md-center">
-      <div class="col-6 mx-auto">
-        <form>
-          {{ form.hidden_tag() }} 
-          {{ form.email }} 
-          {{ form.password }} 
-          {{form.submit }}
+        <form id="login-form">
+          <div class="mb-3">
+            {{ form.hidden_tag() }} 
+            <label for="{{ form.email.label.id }}" 
+                   class="form-label">{{ form.email.label.text }}
+            </label>
+            <input type="email" 
+                  class="form-control" 
+                  id="{{ form.email.id }}" 
+                  name="{{ form.email.name }}" 
+                  aria-describedby="emailHelp" 
+                  required>
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="{{ form.password.label.id }}" 
+                   class="form-label">{{ form.password.label.text }}
+            </label>
+            <input type="password" 
+                  class="form-control" 
+                  id="{{ form.password.id }}" 
+                  name="{{ form.password.name }}" 
+                  aria-describedby="passwordHelp" 
+                  required>
+          </div>
+          <div class="d-grid gap-2">
+            <input class="btn btn-warning" 
+                  id="{{ form.submit.id }}" 
+                  name="{{ form.submit.name }}" 
+                  type="submit" 
+                  value="{{ form.submit.label.text }}">
+          </div>
         </form>
+
       </div>
     </div>
   </div>
 </div>
 
 {% endblock app_content %}
+
+{% block script %}
+<script src="{{ url_for('static', filename='/js/auth/login.js') }}"></script>
+{% endblock script %}
