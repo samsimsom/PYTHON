@@ -1,0 +1,14 @@
+{% extends "_base/_b_main_01.html" %}  
+
+{% block app_content %}
+  <h1>Login Page!</h1>
+  <hr class="divider">
+  <div class="container">
+    <form>
+      {{ form.hidden_tag() }}
+      {{ form.email }}
+      {{ form.password }}
+      {{ form.submit }}
+    </form>
+  </div>
+{% endblock app_content %}

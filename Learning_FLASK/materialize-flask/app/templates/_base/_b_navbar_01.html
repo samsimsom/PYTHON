@@ -10,8 +10,7 @@
       data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent"
       aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,15 +29,20 @@
             id="navbarDropdown"
             role="button"
             data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
+            aria-expanded="false">
+            User
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li>
+              {{ eps.a('dropdown-item', 'auth.login', 'Login') }}
+            </li>
+            <li>
+              {{ eps.a('dropdown-item', 'auth.register', 'Register') }}
+            </li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li>
+              {{ eps.a('dropdown-item', 'auth.logout', 'Logout') }}
+            </li>
           </ul>
         </li>
       </ul>
