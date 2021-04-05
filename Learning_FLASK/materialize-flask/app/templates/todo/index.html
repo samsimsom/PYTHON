@@ -1,54 +1,62 @@
-{% extends "_base/_b_main_01.html" %}
-
+{% extends "_base/_b_main_01.html" %} 
 {% block app_content %}
 <h1>Todo List</h1>
-<hr class="divider">
-
+<hr class="divider" />
 
 <div class="container" id="task-main-container">
   <div class="card">
     <h5 class="card-header">Task List</h5>
     <div class="card-body">
-
       <form id="task-form">
         <div class="mb-3">
           <div class="input-group input-group-lg">
             <span class="input-group-text" id="new-task">New Task : </span>
-            <input type="text" class="form-control" aria-describedby="new-task" id="task-input" required>
+            <input
+              type="text"
+              class="form-control"
+              aria-describedby="new-task"
+              id="task-input"
+              required
+            />
             <button type="submit" class="btn btn-warning">Add Task</button>
           </div>
         </div>
       </form>
 
-      <hr class="divider">
+      <hr class="divider" />
 
       <div class="card">
         <div class="card-header">
           <div class="d-flex flex-row">
-            <div class="d-flex flex-fill align-self-center" id="tasks-title"><h5>Tasks</h5></div>
+            <div class="d-flex flex-fill align-self-center" id="tasks-title">
+              <h5>Tasks</h5>
+            </div>
             <div class="d-flex">
-              <input type="email" class="form-control" placeholder="Filter Tasks" id="filter-input">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Filter Tasks"
+                id="filter-input"
+              />
             </div>
           </div>
         </div>
 
-        <ul class="list-group list-group-flush" id="collection-list">
-
-        </ul>
-
+        <ul class="list-group list-group-flush" id="collection-list"></ul>
       </div>
 
-      <hr class="divider">
+      <hr class="divider" />
 
       <div class="d-grid gap-2">
-          <button class="btn btn-dark" type="button" id="clear-tasks-btn">Remove All</button>
+        <button class="btn btn-dark" type="button" id="clear-tasks-btn">
+          Remove All
+        </button>
       </div>
-
     </div>
   </div>
 </div>
 
-{% endblock app_content %}
+{% endblock app_content %} 
 {% block script %}
 <script src="{{ url_for('static', filename='js/todo_mongo.js') }}"></script>
 {% endblock script %}
