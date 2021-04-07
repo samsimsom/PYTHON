@@ -8,6 +8,7 @@ load_dotenv(os.path.join(app_base_dir, '.env'))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
+    WTF_CSRF_SECRET_KEY = os.environ.get('WTF_CSRF_SECRET_KEY')
 
     # Mongoengine
     MONGODB_DB = os.environ.get('MONGODB_DB')

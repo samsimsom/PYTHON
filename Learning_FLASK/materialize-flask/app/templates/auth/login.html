@@ -12,7 +12,8 @@
   <div class="form-group">
         <form id="login-form">
           <div class="mb-3">
-            {{ form.hidden_tag() }} 
+            {# <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" /> #}
+            {{ form.hidden_tag() }}
             <label for="{{ form.email.label.id }}" 
                    class="form-label">{{ form.email.label.text }}
             </label>
