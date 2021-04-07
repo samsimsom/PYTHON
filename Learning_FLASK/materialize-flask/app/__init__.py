@@ -3,7 +3,7 @@ from flask import Flask
 from config import Config
 
 from app.exts.database import db, sessison_interface
-# from app.exts.csrf import csrf
+from app.exts.csrf import csrf
 
 
 def create_app():
@@ -12,7 +12,7 @@ def create_app():
     app.session_interface = sessison_interface(db)
 
     db.init_app(app)
-    # csrf.init_app(app)
+    csrf.init_app(app)
 
     from app.routes.main import main
     app.register_blueprint(main)

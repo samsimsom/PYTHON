@@ -3,21 +3,26 @@ const emailInput = document.getElementById("login-email-input");
 const passwordInput = document.getElementById("login-password-input");
 const submitButton = document.getElementById("login-submit-button");
 
-loginForm.addEventListener("submit", loginFormSubmited);
+loginForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-function loginFormSubmited(e) {
   let entry = {
-    name: emailInput.value,
-    message: passwordInput.value,
+    email: emailInput.value,
+    password: passwordInput.value,
   };
 
+  postData(e, entry);
+});
+
+async function postData(e, entry) {
   fetch(`${window.origin}/auth/login`, {
     method: "POST",
-    credentials: "include",
+    credentials: "same-origin",
     body: JSON.stringify(entry),
     cache: "no-cache",
     headers: new Headers({
-      "content-type": "application/json",
+      "Content-Type": "application/json",
+      "X-CSRF-TOKEN": e.target.csrf_token.value,
     }),
   })
     .then(function (response) {
@@ -34,33 +39,4 @@ function loginFormSubmited(e) {
     .catch(function (error) {
       console.log("Fetch error: " + error);
     });
-  e.preventDefault();
 }
-
-// function loginFormSubmited(e) {
-//   postData(`${window.origin}/auth/login`, {
-//     email: emailInput.value,
-//     password: passwordInput.value,
-//   }).then((data) => {
-//     console.log(data);
-//     loginForm.reset();
-//   });
-
-//   e.preventDefault();
-// }
-
-// async function postData(url = "", data = {}) {
-//   const response = await fetch(url, {
-//     method: "POST",
-//     mode: "cors",
-//     cache: "no-cache",
-//     credentials: "same-origin",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     redirect: "follow",
-//     referrerPolicy: "no-referrer",
-//     body: JSON.stringify(data),
-//   });
-//   return response.json();
-// }

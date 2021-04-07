@@ -17,6 +17,7 @@ def login():
     if request.method == 'POST':
         if form.validate_on_submit():
             content = request.get_json(force=True)
+            print(content)
             return make_response(jsonify({'Success': 42}))
 
     return render_template('auth/login.html',
