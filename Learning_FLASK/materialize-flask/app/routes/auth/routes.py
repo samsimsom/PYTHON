@@ -18,22 +18,15 @@ def login():
         if form.validate_on_submit():
             content = request.get_json(force=True)
             print(content)
+            print('------------------------------')
+            print(request.headers)
+            print(request.form)
+            print('------------------------------')
             return make_response(jsonify({'Success': 42}))
 
     return render_template('auth/login.html',
                            title=title,
                            form=form)
-
-
-# @auth.route('/login-form-submit', methods=['POST'])
-# def login_form_submit():
-#     if request.method == 'POST':
-#         content = request.get_json(force=True)
-
-#         if content['password'] == 'asd':
-#             return make_response(jsonify({'Success': 42}))
-#         else:
-#             return make_response(jsonify({'Bad Credentials': 64}))
 
 
 @auth.route('/register')
