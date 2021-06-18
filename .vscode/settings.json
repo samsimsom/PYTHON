@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/home/mft/miniconda3/envs/portfolio/bin/python",
+    "python.analysis.extraPaths": ["./test"],
+}
